@@ -1,3 +1,30 @@
+### Game Title TBD ###
+
+This is a web browser game I am currently producing as a project of mine over winter break. I am doing this to create a full stack project on my own as practice. This project is being coded in Typescript using the React framework and using 
+Tailwind for css. I also intend to use MongoDB for the back-end of the project. I am still working on a general theme/direction for the game as of right now the design is simple and practical so that I can begin working on the functionality of 
+the whole project before focusing on details of the game itself.
+
+Current Features:
+-Username is tracked using query parameters
+-Game where the objective is to dodge circle objects with your mouse cursor is functional
+-When your cursor collides with a circle object the game ends
+-Once the game is over your score {time you lasted in seconds} is stored in the Leaderboard page
+
+Features I plan to add:
+-Severside Database to keep track of players scores from multiple different users
+-Leaderboard to display your highest score and top 10 scores in the database
+-Title for the game and more direction for style/theme
+-More game features in general for higher replayability and enjoyment
+-General styling changes and updates
+
+
+
+
+
+
+
+
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
