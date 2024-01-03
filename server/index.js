@@ -2,7 +2,7 @@ const express = require('express')
 const app = express()
 import dotenv from "dotenv";
 
-const port = 3000;
+const port = 5000;
 dotenv.config();
 
 app.get('/', function (req, res) {
