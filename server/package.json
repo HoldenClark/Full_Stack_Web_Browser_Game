@@ -1,7 +1,17 @@
 {
   "dependencies": {
+    "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
-    "mongodb": "^6.3.0"
+    "mongodb": "^6.3.0",
+    "mongoose": "^8.0.3"
+  },
+  "scripts": {
+    "start": "node --openssl-legacy-provider index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint .",
+    "format": "prettier --single-quote --check .",
+    "prepare": "cd ../ && husky install server/.husky",
+    "dev": "nodemon --experimental-modules index.js"
   }
 }
