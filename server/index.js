@@ -50,3 +50,12 @@ app.post('/leaderboard', async (req, res) => {
         res.status(500).send('Internal Server Error');
     }
 });
+
+app.get('/leaderboard', async (req, res) => {
+    try {
+        const topScores = await Leaderboard.find({}).sort({ seconds: -1 }).limit(10);
+        res.json(topScores);
+    } catch (error) {
+        res.status(500).send(error);    
+    }
+});

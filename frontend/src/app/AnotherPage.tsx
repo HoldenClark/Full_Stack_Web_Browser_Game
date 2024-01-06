@@ -13,6 +13,27 @@ const AnotherPage: React.FC = () => {
 
     const [seconds, setSeconds] = useState(0);
 
+    async function submitLeaderboardData(username: string | null, seconds: number) {
+        try {
+            const response = await fetch('http://localhost:5000/leaderboard', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ username, seconds }),
+            });
+
+            if (response.ok) {
+                console.log('Leaderboard data submitted successfully');
+            } else {
+                console.error('Failed to submit leaderboard data');
+            }
+        } catch (error) {
+            console.error('Error submitting leaderboard data:', error);
+        }
+    }
+
+
     useEffect(() => {
         const interval = setInterval(() => {
             setSeconds(seconds => seconds + 1);
@@ -81,12 +102,19 @@ const AnotherPage: React.FC = () => {
 
 
 
-        const checkCollision = (mouseX: number, mouseY: number) => {
-            if (isCursorOnObject(mouseX, mouseY, circle) ||
-                isCursorOnObject(mouseX, mouseY, square) ||
-                isCursorOnObject(mouseX, mouseY, triangle)) {
+        let hasSubmitted = false;
 
-                navigate('/leaderboard', { state: { seconds } });
+        const checkCollision = async (mouseX: number, mouseY: number) => {
+            if (!hasSubmitted && (isCursorOnObject(mouseX, mouseY, circle) ||
+                isCursorOnObject(mouseX, mouseY, square) ||
+                isCursorOnObject(mouseX, mouseY, triangle))) {
+
+                hasSubmitted = true; // Prevent future execution
+
+                // Call this function with the appropriate values
+                await submitLeaderboardData(username, seconds);
+
+                navigate('/leaderboard');
             }
         };
 
@@ -107,10 +135,10 @@ const AnotherPage: React.FC = () => {
             if (currentMouseY.current < 0) {
                 currentMouseY.current = 0;
             }
-        
+
             checkCollision(currentMouseX.current, currentMouseY.current);
         };
-        
+
 
         canvas.addEventListener('mousemove', handleMouseMove);
 
@@ -141,13 +169,13 @@ const AnotherPage: React.FC = () => {
             cancelAnimationFrame(animationFrameId);
             canvas.removeEventListener('mousemove', handleMouseMove);
         };
-    }, [circle, navigate, seconds, square, triangle]);
+    }, [circle, navigate, seconds, square, triangle, username]);
 
     return (
         <div className="App flex flex-col justify-center items-center min-h-screen">
             <h1>Username: {username}</h1>
             <TimerComponent seconds={seconds} />
-            <canvas ref={canvasRef} width={800} height={600} className="border-4 border-red-500"/>
+            <canvas ref={canvasRef} width={800} height={600} className="border-4 border-red-500" />
         </div>
     );
 };
